@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chuzone-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mahdihemdane/chuzone-poc.git # Replace with your Repo URL
+    targetRevision: HEAD
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: examen-26
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
