@@ -1,9 +1,21 @@
 services:
   app:
     build: .
-    image: mahdihemdane/chuzone-poc:1.0.0
+    image: mahdihemdane/chuzone-poc:1.0.0-RC1
     ports:
       - "3001:3000"
+    volumes:
+      - ./terraform:/app/terraform
+      - /app/terraform/.terraform
     environment:
       - PORT=3000
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - AWS_DEFAULT_REGION=us-east-1
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: always

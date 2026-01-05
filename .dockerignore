@@ -1,8 +1,9 @@
 node_modules
 npm-debug.log
-terraform
 .git
 .github
 *.ps1
 *.txt
 keys
+terraform/.terraform
+terraform/*.tfstate*

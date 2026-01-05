@@ -5,5 +5,7 @@ terraform/.terraform
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 bin/
-terraform/terraform_log.txt
-push_error.txt
+*.txt
+*.log
+keys/
+!scripts/*.sh

@@ -37,7 +37,7 @@ resource "aws_instance" "master" {
 }
 
 resource "aws_instance" "worker" {
-  count         = 2
+  count         = 1 # Lab restriction (vCPU limit: 2)
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro" # Lab restriction
   subnet_id     = data.aws_subnet.default.id
