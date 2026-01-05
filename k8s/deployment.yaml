@@ -17,7 +17,24 @@ spec:
     spec:
       containers:
       - name: chuzone-app
-        image: mahdihemdane/chuzone-poc:1.0.0
+        image: chuzone-poc:latest
+        imagePullPolicy: Never
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: AWS_SECRET_ACCESS_KEY
+        - name: AWS_SESSION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: AWS_SESSION_TOKEN
         ports:
         - containerPort: 3000
         resources:
