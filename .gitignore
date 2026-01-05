@@ -9,3 +9,4 @@ bin/
 *.log
 keys/
 !scripts/*.sh
+k8s/secret.yaml

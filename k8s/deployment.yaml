@@ -36,7 +36,8 @@ spec:
               name: aws-secret
               key: AWS_SESSION_TOKEN
         ports:
-        - containerPort: 3000
+        - name: http
+          containerPort: 3000
         resources:
           requests:
             memory: "64Mi"
