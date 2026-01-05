@@ -21,13 +21,13 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "master" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro" # Lab restriction
+  instance_type = "t2.medium"
   subnet_id     = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
   # key_name removed due to Lab restrictions
 
   root_block_device {
-    volume_size = 8 # Lab restriction
+    volume_size = 16
   }
 
   tags = {
@@ -37,15 +37,15 @@ resource "aws_instance" "master" {
 }
 
 resource "aws_instance" "worker" {
-  count         = 1 # Lab restriction (vCPU limit: 2)
+  count         = 2
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro" # Lab restriction
+  instance_type = "t2.medium"
   subnet_id     = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
   # key_name removed due to Lab restrictions
 
   root_block_device {
-    volume_size = 8 # Lab restriction
+    volume_size = 16
   }
 
   tags = {
