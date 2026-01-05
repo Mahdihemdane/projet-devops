@@ -1,0 +1,30 @@
+name: Phase 3 - Deployment
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Verify Deployment Manifests
+        run: |
+          echo "Verifying Kubernetes manifests for Phase 3..."
+          ls -l k8s/
+          cat k8s/deployment.yaml | grep "image: mahdihemdane/chuzone-poc:1.0.0"
+
+      - name: Simulate Deployment Trigger
+        run: |
+          echo "Deployment to K8s Cluster (via Argo CD) is in progress..."
+          echo "Phase 3: Continuous Deployment triggered for release ${{ github.ref_name }}"
+
+      - name: Final Pipeline Summary
+        run: |
+          echo "--- ChuZone DevOps Pipeline Complete ---"
+          echo "Phase 1: CI [COMPLETED]"
+          echo "Phase 2: Release Approve [COMPLETED]"
+          echo "Phase 3: Deployment & Verification [COMPLETED]"

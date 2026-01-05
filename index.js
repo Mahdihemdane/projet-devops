@@ -21,10 +21,10 @@ app.get('/', (req, res) => {
 
   res.json({
     message: 'Hello ChuZone!',
-    version: '1.0.0-RC1',
+    version: '1.0.0',
     status: 'Ready',
     environment: 'POC',
-    phase: 'CI Phase 1 - Success',
+    phase: 'CD Phase 3 - Successfully Deployed',
     infrastructure: {
       status: terraformStatus,
       details: infrastructure
