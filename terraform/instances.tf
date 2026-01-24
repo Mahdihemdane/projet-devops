@@ -13,18 +13,18 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-# Lab restriction: Cannot create key pairs
-# resource "aws_key_pair" "k8s_key" {
-#   key_name   = "k8s-key"
-#   public_key = file("${path.module}/../keys/k8s-key.pub")
-# }
+# Enable key pair
+resource "aws_key_pair" "k8s_key" {
+  key_name   = "k8s-key"
+  public_key = file("${path.module}/../keys/k8s-key.pub")
+}
 
 resource "aws_instance" "master" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.medium"
+  instance_type = "t2.micro"
   subnet_id     = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
-  # key_name removed due to Lab restrictions
+  key_name               = aws_key_pair.k8s_key.key_name
 
   root_block_device {
     volume_size = 16
@@ -33,16 +33,18 @@ resource "aws_instance" "master" {
   tags = {
     Name = "k8s-master"
     Role = "master"
+    Lab  = "true"
+    Environment = "Lab"
   }
 }
 
 resource "aws_instance" "worker" {
-  count         = 2
+  count         = 0
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.medium"
+  instance_type = "t2.micro"
   subnet_id     = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
-  # key_name removed due to Lab restrictions
+  key_name               = aws_key_pair.k8s_key.key_name
 
   root_block_device {
     volume_size = 16

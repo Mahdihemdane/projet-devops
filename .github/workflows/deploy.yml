@@ -14,8 +14,8 @@ jobs:
       - name: Verify Deployment Manifests
         run: |
           echo "Verifying Kubernetes manifests for Phase 3..."
-          ls -l k8s/
-          cat k8s/deployment.yaml | grep "image: mahdihemdane/chuzone-poc:1.0.0"
+          ls -l k8s/full-stack/
+          cat k8s/full-stack/frontend.yaml | grep "image: mahdihemdane/chuzone-frontend:1.0.0"
 
       - name: Simulate Deployment Trigger
         run: |
