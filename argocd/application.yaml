@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/MahdiHemdane/projet-devops.git
-    targetRevision: HEAD
+    targetRevision: main
     path: k8s/full-stack
   destination:
     server: https://kubernetes.default.svc
