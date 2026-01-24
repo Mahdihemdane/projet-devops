@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Run tests
+    - name: Run Angular unit tests (Headless)
       run: npm test -- --watch=false --browsers=ChromeHeadless
 
   docker-build-push:
