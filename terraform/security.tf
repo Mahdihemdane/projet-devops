@@ -1,7 +1,7 @@
 resource "aws_security_group" "k8s_sg" {
   name        = "k8s-sg"
   description = "Security group for Kubernetes cluster"
-  vpc_id      = data.aws_vpc.lab_vpc.id
+  vpc_id      = aws_default_vpc.default.id
 
   ingress {
     from_port   = 22
