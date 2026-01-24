@@ -24,7 +24,7 @@ spec:
   template:
     metadata:
       labels:
-        app: frontend
+        app: chuzone
     spec:
       containers:
       - image: mahdihemdane/chuzone-frontend:1.0.0
