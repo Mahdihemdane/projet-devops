@@ -13,10 +13,9 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-# Enable key pair
-resource "aws_key_pair" "k8s_key" {
-  key_name   = "k8s-key"
-  public_key = file("${path.module}/../keys/k8s-key.pub")
+# Using standard Lab key name
+variable "key_name" {
+  default = "vockey"
 }
 
 resource "aws_instance" "master" {
@@ -24,10 +23,11 @@ resource "aws_instance" "master" {
   instance_type = "t2.micro"
   subnet_id     = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
-  key_name               = aws_key_pair.k8s_key.key_name
+  key_name               = var.key_name
 
   root_block_device {
     volume_size = 16
+    volume_type = "gp2"
   }
 
   tags = {
@@ -39,19 +39,22 @@ resource "aws_instance" "master" {
 }
 
 resource "aws_instance" "worker" {
-  count         = 0
+  count         = 2
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   subnet_id     = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
-  key_name               = aws_key_pair.k8s_key.key_name
+  key_name               = var.key_name
 
   root_block_device {
     volume_size = 16
+    volume_type = "gp2"
   }
 
   tags = {
     Name = "k8s-worker-${count.index + 1}"
     Role = "worker"
+    Lab  = "true"
+    Environment = "Lab"
   }
 }

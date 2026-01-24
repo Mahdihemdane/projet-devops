@@ -50,10 +50,18 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         
-    - name: Build and push
+    - name: Build and push Frontend
       if: steps.check_secrets.outputs.has_docker_secrets == 'true'
       uses: docker/build-push-action@v4
       with:
         context: ./apps/frontend
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-poc:1.0.0-RC1
+        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-frontend:1.0.0-RC1
+
+    - name: Build and push Backend
+      if: steps.check_secrets.outputs.has_docker_secrets == 'true'
+      uses: docker/build-push-action@v4
+      with:
+        context: ./apps/backend
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-backend:1.0.0-RC1
