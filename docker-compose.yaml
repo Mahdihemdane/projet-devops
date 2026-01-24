@@ -29,7 +29,7 @@ services:
     networks:
       - chuzone-net
 
-  frontend:
+  chuzone:
     build:
       context: ./apps/frontend
     ports:

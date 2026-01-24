@@ -28,6 +28,6 @@ spec:
     spec:
       containers:
       - image: mahdihemdane/chuzone-frontend:1.0.0
-        name: frontend
+        name: chuzone
         ports:
         - containerPort: 80
