@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: chuzone
   namespace: chuzone
 spec:
   type: NodePort
@@ -10,24 +10,24 @@ spec:
       targetPort: 80
       nodePort: 30080
   selector:
-    app: frontend
+    app: chuzone
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: chuzone
   namespace: chuzone
 spec:
   selector:
     matchLabels:
-      app: frontend
+      app: chuzone
   template:
     metadata:
       labels:
         app: chuzone
     spec:
       containers:
-      - image: mahdihemdane/chuzone-frontend:1.0.0
+      - image: mahdihemdane/chuzone-chuzone:1.0.0
         name: chuzone
         ports:
         - containerPort: 80
