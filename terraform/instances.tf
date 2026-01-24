@@ -20,7 +20,7 @@ variable "key_name" {
 resource "aws_instance" "master" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
-  subnet_id              = data.aws_subnet.default.id
+  subnet_id              = data.aws_subnet.lab_subnet.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
   key_name               = var.key_name
 
@@ -41,7 +41,7 @@ resource "aws_instance" "worker" {
   count                  = 2
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
-  subnet_id              = data.aws_subnet.default.id
+  subnet_id              = data.aws_subnet.lab_subnet.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
   key_name               = var.key_name
 
