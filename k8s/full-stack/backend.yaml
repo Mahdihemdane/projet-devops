@@ -24,7 +24,7 @@ spec:
         app: backend
     spec:
       containers:
-      - image: mahdihemdane/chuzone-backend:1.0.0-RC1
+      - image: mahdihemdane/chuzone-backend:1.0.0
         name: backend
         env:
         - name: DB_HOST

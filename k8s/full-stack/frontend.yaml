@@ -27,7 +27,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: mahdihemdane/chuzone-frontend:1.0.0-RC1
+      - image: mahdihemdane/chuzone-frontend:1.0.0
         name: frontend
         ports:
         - containerPort: 80
