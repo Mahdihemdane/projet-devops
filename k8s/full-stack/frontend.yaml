@@ -27,7 +27,7 @@ spec:
         app: chuzone
     spec:
       containers:
-      - image: mahdihemdane/chuzone-chuzone:1.0.0
+      - image: mahdihemdane/chuzone-frontend:1.0.0
         name: chuzone
         ports:
         - containerPort: 80
