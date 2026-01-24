@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: chuzone
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: chuzone
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: mahdihemdane/chuzone-backend:1.0.0
+        name: backend
+        env:
+        - name: DB_HOST
+          value: mysql
+        - name: DB_NAME
+          value: chuzone_db
+        - name: DB_USER
+          value: root
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-root-password
+        ports:
+        - containerPort: 8080
