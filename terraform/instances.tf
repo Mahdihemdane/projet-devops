@@ -1,27 +1,26 @@
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"] # Canonical
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
-  
+
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
 }
 
-# Using standard Lab key name
 variable "key_name" {
   default = "vockey"
 }
 
 resource "aws_instance" "master" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-  subnet_id     = data.aws_subnet.default.id
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  subnet_id              = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
   key_name               = var.key_name
 
@@ -31,18 +30,18 @@ resource "aws_instance" "master" {
   }
 
   tags = {
-    Name = "k8s-master"
-    Role = "master"
-    Lab  = "true"
+    Name        = "k8s-master"
+    Role        = "master"
+    Lab         = "true"
     Environment = "Lab"
   }
 }
 
 resource "aws_instance" "worker" {
-  count         = 2
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-  subnet_id     = data.aws_subnet.default.id
+  count                  = 2
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  subnet_id              = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
   key_name               = var.key_name
 
@@ -52,9 +51,9 @@ resource "aws_instance" "worker" {
   }
 
   tags = {
-    Name = "k8s-worker-${count.index + 1}"
-    Role = "worker"
-    Lab  = "true"
+    Name        = "k8s-worker-${count.index + 1}"
+    Role        = "worker"
+    Lab         = "true"
     Environment = "Lab"
   }
 }
