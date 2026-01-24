@@ -56,7 +56,7 @@ jobs:
       with:
         context: ./apps/frontend
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-frontend:1.0.0-RC1
+        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-frontend:1.0.0
 
     - name: Build and push Backend
       if: steps.check_secrets.outputs.has_docker_secrets == 'true'
@@ -64,4 +64,4 @@ jobs:
       with:
         context: ./apps/backend
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-backend:1.0.0-RC1
+        tags: ${{ secrets.DOCKER_USERNAME }}/chuzone-backend:1.0.0
